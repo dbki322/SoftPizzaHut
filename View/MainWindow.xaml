@@ -1,0 +1,396 @@
+﻿<Window x:Class="SoftPizzaHut.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SoftPizzaHut"
+        xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="Управление закупками PizzaHut" MinHeight="700" MinWidth="1200"  FontSize="23.9"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}" Height="604" Width="906">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/View/Dictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <!--Control colors.-->
+            <Color x:Key="WindowColor">#FFE8EDF9</Color>
+            <Color x:Key="GlyphColor">#FFEE3A43</Color>
+            <Color x:Key="DefaultBorderBrushDarkColor">Black</Color>
+            <Color x:Key="HeaderTopColor">#FFEE3A43</Color>
+            <Style  TargetType="{x:Type TabControl}">
+                <Setter Property="OverridesDefaultStyle"
+          Value="True" />
+                <Setter Property="SnapsToDevicePixels"
+          Value="True" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type TabControl}">
+                            <Grid KeyboardNavigation.TabNavigation="Local">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Disabled">
+                                            <Storyboard>
+
+                                                <ColorAnimationUsingKeyFrames Storyboard.TargetName="Border"    
+                                                Storyboard.TargetProperty="(Border.BorderBrush).
+                    (SolidColorBrush.Color)" >
+                                                    <EasingColorKeyFrame KeyTime="0"
+                                         Value="#70EFEFEF" />
+                                                </ColorAnimationUsingKeyFrames>
+
+                                            </Storyboard>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                                <TabPanel x:Name="HeaderPanel"
+                    Grid.Row="0"
+                    Panel.ZIndex="1"
+                    Margin="0,0,0,0"
+                    IsItemsHost="True"
+                    KeyboardNavigation.TabIndex="1"
+                    Background="Transparent" />
+                                <Border x:Name="Border"
+                  Grid.Row="1"
+                  BorderThickness="1"
+                  CornerRadius="2"
+                  KeyboardNavigation.TabNavigation="Local"
+                  KeyboardNavigation.DirectionalNavigation="Contained"
+                  KeyboardNavigation.TabIndex="2">
+                                    <ContentPresenter x:Name="PART_SelectedContentHost"
+                              Margin="4"
+                              ContentSource="SelectedContent" />
+                                </Border>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style TargetType="{x:Type TabItem}">
+                <Style.Triggers>
+                    <Trigger Property="IsSelected" Value="True">
+                        <Setter Property="Foreground" Value="#FFF44336"/>
+                        <Setter Property="FontSize" Value="26"/>
+                    </Trigger>
+                    <Trigger Property="IsSelected" Value="False">
+                        <Setter Property="Foreground" Value="#FF7F7E7E"/>
+                    </Trigger>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Foreground" Value="Tomato"/>
+                    </Trigger>
+
+                </Style.Triggers>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type TabItem}">
+                            <Grid x:Name="Root">
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="SelectionStates">
+                                        <VisualState x:Name="Unselected" />
+                                        <VisualState x:Name="Selected">
+                                            <Storyboard>
+                                                <ColorAnimationUsingKeyFrames Storyboard.TargetName="Border"
+                                                Storyboard.TargetProperty="(Panel.Background).
+                    (GradientBrush.GradientStops)[3].(GradientStop.Color)">
+                                                    <EasingColorKeyFrame KeyTime="0"
+                                         Value="#66FF000D" />
+                                                </ColorAnimationUsingKeyFrames>
+
+                                            </Storyboard>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                                <Border x:Name="Border"
+                  Margin="0,0,0,0"
+                  BorderThickness="0,0,0,0"     
+                                CornerRadius="0,0,0,0">
+                                    <Border.BorderBrush>
+                                        <SolidColorBrush Color="#0001FB11" />
+                                    </Border.BorderBrush>
+                                    <Border.Background>
+                                        <LinearGradientBrush StartPoint="0,0"
+                                   EndPoint="0,1">
+                                            <LinearGradientBrush.GradientStops>
+                                                <GradientStopCollection>
+                                                    <GradientStop Color="#1C211AA9"
+                                  Offset="0.907" />
+                                                    <GradientStop Color="#FFEE3A43" Offset="1"/>
+                                                    <GradientStop Color="#FFEE3A43" Offset="0.907"/>
+                                                    <GradientStop Color="#26FF0000" Offset="0.903"/>
+                                                    <GradientStop Color="#00F7418C" Offset="0.667"/>
+                                                </GradientStopCollection>
+                                            </LinearGradientBrush.GradientStops>
+                                        </LinearGradientBrush>
+
+                                    </Border.Background>
+                                    <ContentPresenter x:Name="ContentSite"
+                              VerticalAlignment="Center"
+                              HorizontalAlignment="Center"
+                              ContentSource="Header"
+                              Margin="12,2,12,2"
+                              RecognizesAccessKey="True" />
+                                </Border>
+                            </Grid>
+
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <SolidColorBrush x:Key="pizzastyle1" Color="#FFA71732"/>
+            <SolidColorBrush x:Key="pizzastyle2" Color="#FFE20029"/>
+            <SolidColorBrush x:Key="TextBox.Static.Border" Color="#FFABAdB3"/>
+            <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#FF7EB4EA"/>
+            <SolidColorBrush x:Key="TextBox.Focus.Border" Color="#FF569DE5"/>
+            <Style x:Key="search" TargetType="{x:Type TextBox}" >
+                <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource TextBox.Static.Border}"/>
+                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
+                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                <Setter Property="AllowDrop" Value="true"/>
+                <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
+                <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type TextBox}">
+                            <Border x:Name="border" Padding="15,5,220,1"  CornerRadius="5" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="True">
+                                <ScrollViewer  x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsEnabled" Value="false">
+                                    <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="true">
+                                    <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.MouseOver.Border}"/>
+                                </Trigger>
+                                <Trigger Property="IsKeyboardFocused" Value="true">
+                                    <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.Focus.Border}"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Text}" Value="">
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <VisualBrush  AlignmentX="Left" Stretch="None" Opacity="0.5" Viewbox="-0.26,0,1,1">
+                                    <VisualBrush.Visual>
+                                        <TextBlock  Margin="10" Text="Поиск"  FontSize="22" Foreground="#FF8E8E8E" Padding="1,1,1,1" />
+                                    </VisualBrush.Visual>
+                                </VisualBrush>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Text}" Value="{x:Null}">
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsFocused}" Value="True">
+                    </DataTrigger>
+                    <MultiTrigger>
+                        <MultiTrigger.Conditions>
+                            <Condition Property="IsInactiveSelectionHighlightEnabled" Value="true"/>
+                            <Condition Property="IsSelectionActive" Value="false"/>
+                        </MultiTrigger.Conditions>
+                        <Setter Property="SelectionBrush" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
+                    </MultiTrigger>
+                </Style.Triggers>
+            </Style>
+
+
+            <Style TargetType="MenuItem" BasedOn="{StaticResource {x:Type MenuItem}}">
+                <Style.Triggers>
+                    <Trigger Property="Role" Value="TopLevelHeader">
+                        <Setter Property="HeaderTemplate">
+                            <Setter.Value>
+                                <DataTemplate>
+                                    <DockPanel Background="Transparent">
+                                        <materialDesign:PackIcon Kind="MenuDown" DockPanel.Dock="Right" VerticalAlignment="Center" 
+                                                             Foreground="{DynamicResource PrimaryHueMidBrush}"/>
+                                        <ContentPresenter Content="{Binding}" Margin="5,0" />
+                                    </DockPanel>
+                                </DataTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="Padding" Value="0" />
+                        <!--<Setter Property="Width" Value="80" />-->
+                    </Trigger>
+                    <Trigger Property="Role" Value="SubmenuItem">
+                        <Setter Property="CommandParameter" Value="{Binding Header, RelativeSource={RelativeSource Self}}" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <SolidColorBrush x:Key="OpacityGrey" Color="#FFBDBDBD"/>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid Margin="0,0,0,12">
+        <Grid.Background>
+            <ImageBrush/>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="833*"/>
+            <ColumnDefinition Width="367*"/>
+        </Grid.ColumnDefinitions>
+
+        <Image Opacity="0.3" Margin="386,181,19,30" Source="/View/PizzaHut.svg.png" MinWidth="15" MinHeight="50" Stretch="Uniform" StretchDirection="Both" Grid.IsSharedSizeScope="True"/>
+        <TabControl SelectedIndex="{Binding SelectedTab}" Margin="5,78,5,0" FontSize="20" Grid.ColumnSpan="2" >
+            <TabItem   Header="Закупки" BorderBrush="{x:Null}" Background="{x:Null}" Margin="0,0,-66,-33">
+                <Grid>
+                    <DataGrid SelectedItem="{Binding SelectedPurchase, Mode=TwoWay}" AutoGenerateColumns="False" ItemsSource="{Binding AllPurchases, Mode=TwoWay}" 
+                              SelectionMode="Single" SelectionUnit="FullRow"
+                              x:Name="DataGridPurchase" Margin="10,36,-10,47" CanUserAddRows="False" Opacity="0.8">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Продукт"  MinWidth="100" Binding="{Binding PurchaseProduct.NameProduct, Mode=OneWay}" />
+                            <DataGridTextColumn Header="Поставщик"  MinWidth="100" Binding="{Binding PurchaseProduct.ProductProvider.NameProvider, Mode=OneWay}"/>
+                            <DataGridTextColumn Header="Количество"  MinWidth="100" Binding="{Binding Amount, Mode=OneWay}"/>
+                            <DataGridTextColumn Header="Стоимость"  MinWidth="100" Binding="{Binding PurchaseSum, Mode=OneWay}"/>
+                            <DataGridTextColumn Header="Дата заказа"  MinWidth="200" Binding="{Binding Date, StringFormat=d, Mode=OneWay}"/>
+                            <DataGridCheckBoxColumn Header="Статус заказа"  MinWidth="100"  Binding="{Binding Status, Mode=OneWay}" />
+                            <DataGridTextColumn Header="Категории" MinWidth="100" Binding="{Binding PurchaseProduct.AllCategoriesString, Mode=OneWay}"/>
+
+
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Button Content="Удалить" Command="{Binding DeletePurchase}" Margin="208,0,0,10" Style="{DynamicResource MaterialDesignFlatMidBgButton}" Cursor="Hand" Height="32" VerticalAlignment="Bottom" Effect="{DynamicResource MaterialDesignShadowDepth3}" Foreground="White" HorizontalAlignment="Left" Width="181"/>
+                    <Button Content="Добавить" Command="{Binding ShowAddPurchaseDialog}"  HorizontalAlignment="Left" Margin="10,0,0,10" Width="174" Height="32" VerticalAlignment="Bottom" Effect="{DynamicResource MaterialDesignShadowDepth3}" Cursor="Hand" Style="{DynamicResource MaterialDesignFlatMidBgButton}" Foreground="White"/>
+                    <Button Content="Изменить статус заказа" Command="{Binding ChangePurshaseStatus}"  HorizontalAlignment="Left" Margin="413,0,0,10" Width="195" Height="32" VerticalAlignment="Bottom" Effect="{DynamicResource MaterialDesignShadowDepth3}" Cursor="Hand" Style="{DynamicResource MaterialDesignFlatMidBgButton}" Foreground="White"/>
+
+
+                </Grid>
+            </TabItem>
+            <TabItem Header="Поставщики" BorderBrush="{x:Null}" Background="{x:Null}" Margin="65,1,-132,-33">
+                <Grid>
+                    <DataGrid SelectedItem="{Binding SelectedProvider, Mode=TwoWay}" 
+                              AutoGenerateColumns="False" ItemsSource="{Binding AllProviders, Mode=TwoWay}" 
+                              SelectionMode="Single" SelectionUnit="FullRow"
+                              x:Name="DataGridProvider" Margin="10,36,-10,47" CanUserAddRows="False" Opacity="0.8">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Название"  MinWidth="100" Binding="{Binding NameProvider, Mode=OneWay}" />
+                            <DataGridTextColumn Header="ИНН"  MinWidth="100" Binding="{Binding Inn, Mode=OneWay}"/>
+                            <DataGridTextColumn Header="КПП"  MinWidth="100" Binding="{Binding Kpp, Mode=OneWay}"/>
+                            <DataGridTextColumn Header="ОГРН"  MinWidth="100" Binding="{Binding Ogrn, Mode=OneWay}"/>
+                            <DataGridTextColumn Header="Адрес"  MinWidth="200" Binding="{Binding Address, Mode=OneWay}"/>
+                            <DataGridTextColumn Header="Регистрация" MinWidth="100" Binding="{Binding Registration, Mode=OneWay}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <Button Content="Удалить" Command="{Binding DeleteProvider}" Margin="208,0,0,10" Style="{DynamicResource MaterialDesignFlatMidBgButton}" Cursor="Hand"  Height="32" VerticalAlignment="Bottom" Effect="{DynamicResource MaterialDesignShadowDepth3}" Foreground="White" HorizontalAlignment="Left" Width="174"/>
+                    <Button Content="Добавить" Command="{Binding ShowAddProviderDialog}"  HorizontalAlignment="Left" Margin="10,0,0,10" Width="174" Height="32" VerticalAlignment="Bottom" Effect="{DynamicResource MaterialDesignShadowDepth3}" Cursor="Hand" Style="{DynamicResource MaterialDesignFlatMidBgButton}" Foreground="White"/>
+                    <Button Content="Редактировать" Command="{Binding ChangeProvider}"  HorizontalAlignment="Left" Margin="408,0,0,10" Width="174" Height="32" VerticalAlignment="Bottom" Effect="{DynamicResource MaterialDesignShadowDepth3}" Cursor="Hand" Style="{DynamicResource MaterialDesignFlatMidBgButton}" Foreground="White"/>
+
+                </Grid>
+            </TabItem>
+            <TabItem Header="Товары" BorderBrush="{x:Null}" Background="{x:Null}" Margin="132,0,-198,-33">
+                <Grid>
+                    <DataGrid SelectedItem="{Binding SelectedProduct, Mode=TwoWay}" 
+                              AutoGenerateColumns="False" ItemsSource="{Binding AllProducts, Mode=TwoWay}" 
+                              SelectionMode="Single" SelectionUnit="FullRow"
+                              x:Name="DataGridProduct" Margin="10,36,-10,47" CanUserAddRows="False" Opacity="0.8">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Название"  MinWidth="100" Binding="{Binding NameProduct, Mode=OneWay}" />
+                            <DataGridTextColumn Header="Поставщик"  MinWidth="100" Binding="{Binding ProductProvider.NameProvider, Mode=OneWay}"/>
+                            <DataGridTextColumn Header="Цена"  MinWidth="100" Binding="{Binding Price, Mode=OneWay}"/>
+                            <DataGridTextColumn Header="Единица измерения"  MinWidth="100" Binding="{Binding Unit, Mode=OneWay}"/>
+                            <DataGridTextColumn Header="Категории"  MinWidth="200" Binding="{Binding AllCategoriesString, Mode=OneWay}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <Button Content="Удалить" Command="{Binding DeleteProduct}" Margin="208,0,0,10" Style="{DynamicResource MaterialDesignFlatMidBgButton}" Cursor="Hand"  Height="32" VerticalAlignment="Bottom" Effect="{DynamicResource MaterialDesignShadowDepth3}" Foreground="White" HorizontalAlignment="Left" Width="174"/>
+                    <Button Content="Добавить" Command="{Binding ShowAddProductDialog}"  HorizontalAlignment="Left" Margin="10,0,0,10" Width="174" Height="32" VerticalAlignment="Bottom" Effect="{DynamicResource MaterialDesignShadowDepth3}" Cursor="Hand" Style="{DynamicResource MaterialDesignFlatMidBgButton}" Foreground="White"/>
+                    <Button Content="Редактировать" Command="{Binding ChangeProduct}"  HorizontalAlignment="Left" Margin="408,0,0,10" Width="174" Height="32" VerticalAlignment="Bottom" Effect="{DynamicResource MaterialDesignShadowDepth3}" Cursor="Hand" Style="{DynamicResource MaterialDesignFlatMidBgButton}" Foreground="White"/>
+
+                </Grid>
+
+            </TabItem>
+            <TabItem Header="Отчеты" BorderBrush="{x:Null}" Background="{x:Null}" Margin="198,0,-265,-33">
+                <Grid>
+                    <ComboBox  SelectedItem="{Binding SelectReport}" SelectedIndex="{Binding SelectedReport}"
+                        HorizontalAlignment="Left" Margin="10,76,0,0" VerticalAlignment="Top" Width="363" Style="{DynamicResource MaterialDesignOutlinedComboBox}" Template="{DynamicResource MaterialDesignFloatingHintComboBoxTemplate}" Height="60" FontSize="22">
+                        <ComboBoxItem Content="Отчёт по поставщику"/>
+                        <ComboBoxItem Content="Отчёт по продукту"/>
+                    </ComboBox>
+                    <Button Content="Сформировать отчёт" Command="{Binding CreateDocx}"  HorizontalAlignment="Left" Margin="10,0,0,10" Width="229" Height="32" VerticalAlignment="Bottom" Effect="{DynamicResource MaterialDesignShadowDepth3}" Cursor="Hand" Style="{DynamicResource MaterialDesignFlatMidBgButton}" Foreground="White"/>
+                    <ComboBox ItemsSource="{Binding AllProviders, Mode=TwoWay}"  Visibility="{Binding VisibilityProvider}"
+                              SelectedItem="{Binding ReportProvider, Mode=TwoWay}"
+                              DisplayMemberPath="NameProvider"  IsEditable="True" IsTextSearchEnabled="True"
+                        materialDesign:HintAssist.Hint="Поставщик" HorizontalAlignment="Left" Margin="21,228,0,0" VerticalAlignment="Top" Width="323" FontSize="24"/>
+                    <ComboBox ItemsSource="{Binding AllProducts, Mode=TwoWay}" Visibility="{Binding VisibilityProduct}"
+                              SelectedItem="{Binding ReportProduct, Mode=TwoWay}"
+                              DisplayMemberPath="NameProduct"  IsEditable="True" IsTextSearchEnabled="True"
+                              materialDesign:HintAssist.Hint="Продукт" HorizontalAlignment="Left" Margin="21,228,0,0" VerticalAlignment="Top" Width="323" FontSize="24"/>
+                </Grid>
+            </TabItem>
+
+        </TabControl>
+        <!--    <Expander Height="47" Header="Расширенный поиск" Margin="0,20,43,0" VerticalAlignment="Top" Background="#00000000" FontSize="20" Panel.ZIndex="1" Padding="0,0,0,0" HorizontalAlignment="Right" Width="234" FlowDirection="RightToLeft" FontWeight="Normal">
+            <Expander.Foreground>
+                <SolidColorBrush Color="#FFEE3A43"/>
+            </Expander.Foreground>
+            <Grid Background="#CCF1F1F1" Margin="-115,0,-340,-230" Width="783" HorizontalAlignment="Left">
+                <TextBox HorizontalAlignment="Left" Margin="10,51,0,0" TextWrapping="Wrap" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  md:HintAssist.Hint="Поставщик" VerticalAlignment="Top" Width="407" HorizontalContentAlignment="Left" Foreground="Gray" Cursor="IBeam"/>
+                <TextBox  materialDesign:HintAssist.Hint="Enter Text"  HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="407" Height="36" Foreground="Gray" Cursor="IBeam" Style="{DynamicResource MaterialDesignTextBoxBase}"/>
+                <TextBox materialDesign:HintAssist.Hint="Enter Text" HorizontalAlignment="Left" Margin="10,124,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="407" Foreground="Gray" Cursor="IBeam"/>
+                <TextBox HorizontalAlignment="Left" Margin="166,176,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.653,0.456" Foreground="Gray" Cursor="IBeam"/>
+                <TextBox HorizontalAlignment="Left" Margin="10,174,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" Foreground="Gray" Cursor="IBeam"/>
+                <Label Content="Цена        От:" HorizontalAlignment="Left" Margin="281,176,0,0" VerticalAlignment="Top" Height="44" Width="136" FlowDirection="LeftToRight"/>
+                <Label Content="до:" HorizontalAlignment="Left" Margin="130,176,0,0" VerticalAlignment="Top" FlowDirection="LeftToRight"/>
+            </Grid>
+        </Expander> -->
+        <TextBox x:Name="TextBox1" Text="{Binding SearchText}" Style="{DynamicResource search}" Padding="111,22,245,4" Margin="16,24,32,0" TextWrapping="NoWrap" VerticalAlignment="Top" MinWidth="485" Foreground="{DynamicResource OpacityGrey}"  BorderThickness="1,1,1,1" SnapsToDevicePixels="True" BorderBrush="#A8ABADB3"  Height="42" Cursor="IBeam" ScrollViewer.CanContentScroll="True" FontSize="26" Effect="{DynamicResource MaterialDesignShadowDepth3}"/>
+        <Button Command="{Binding Search}" Content="Найти" Margin="0,26,214,0" Cursor="Hand" Foreground="White" Grid.Column="1" Height="38" VerticalAlignment="Top" Effect="{DynamicResource MaterialDesignShadowDepth3}"/>
+        <!-- <Button Content="{materialDesign:PackIcon Settings}"  Grid.Column="1" HorizontalAlignment="Left" Margin="29,78,0,0" VerticalAlignment="Top" Cursor="Hand" Effect="{DynamicResource MaterialDesignShadowDepth3}" Foreground="#FFFF9801" Background="{x:Null}" Height="48" Width="48" Style="{DynamicResource MaterialDesignToolButton}"/>
+-->
+        <Menu Margin="0,2,17,582" Grid.Column="1" Background="#54FFFFFF" HorizontalContentAlignment="Left" FlowDirection="RightToLeft" HorizontalAlignment="Right" Width="92">
+
+            <MenuItem Height="76" Width="168" >
+                <MenuItem.Header>
+                    <StackPanel Width="67" Height="71">
+                        <materialDesign:PackIcon Kind="Cogs" HorizontalAlignment="Center" Height="50" Width="50" Effect="{DynamicResource MaterialDesignShadowDepth2}"/>
+                        <TextBlock Text="Настройки" HorizontalAlignment="Center" FontSize="10"/>
+                    </StackPanel>
+                </MenuItem.Header>
+                <MenuItem Header="Сменить тему" Command="{Binding ChangeTheme}">
+                    <MenuItem.Icon>
+                        <materialDesign:PackIcon Kind="Autorenew" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator />
+                <MenuItem Header="Загрузить тестовые данные" Command="{Binding DownloadTest}">
+                    <MenuItem.Icon>
+                        <materialDesign:PackIcon Kind="Download" />
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+        </Menu>
+        <materialDesign:DialogHost DialogTheme="Light" Identifier="RootDialogHost" Grid.ColumnSpan="2" Margin="0,0,0,-15" Panel.ZIndex="100" />
+
+        <Grid Visibility="{Binding LoginScreen}" Grid.ColumnSpan="2" Margin="0,0,0,-15">
+            <Grid.Background>
+                <ImageBrush ImageSource="/View/PizzaFon.jpg" Stretch="Fill"/>
+            </Grid.Background>
+            <Rectangle SnapsToDevicePixels="True" HorizontalAlignment="Center" VerticalAlignment="Top" Width="360" Height="372" Fill="White" RadiusX="3.395" RadiusY="3.395" Effect="{DynamicResource MaterialDesignShadowDepth3}" Margin="0,158,0,0"/>
+            <TextBox FontSize="23" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:HintAssist.Hint="Логин" Margin="0,222,0,0" TextWrapping="Wrap" Text="{Binding Login}" HorizontalAlignment="Center" Width="256" Height="57" VerticalAlignment="Top"/>
+            <PasswordBox FontSize="23" x:Name="PasswordBox" materialDesign:HintAssist.Hint="Пароль" Margin="0,340,0,0"  Style="{DynamicResource MaterialDesignPasswordBox}" Cursor="IBeam" HorizontalAlignment="Center" Width="256" Height="37" VerticalAlignment="Top"/>
+            <Button Command="{Binding LoginCommand}"
+    CommandParameter="{Binding ElementName=PasswordBox}" Content="Войти" Margin="0,450,0,0" SnapsToDevicePixels="True" Cursor="Hand" Foreground="White" Effect="{DynamicResource MaterialDesignShadowDepth3}" FontSize="18" HorizontalAlignment="Center" Width="256" Height="32" VerticalAlignment="Top"/>
+        </Grid>
+    </Grid>
+</Window>

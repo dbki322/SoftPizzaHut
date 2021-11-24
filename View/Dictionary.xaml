@@ -1,0 +1,28 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                    xmlns:vm="clr-namespace:SoftPizzaHut.ViewModel"
+                    xmlns:local="clr-namespace:SoftPizzaHut">
+
+    <DataTemplate DataType="{x:Type vm:PurchaseVM}">
+        <local:PurchaseAdd />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:ProviderVM}">
+        <local:ProviderAdd />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:ProviderVMEdit}">
+        <local:ProviderEdit />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:ProductVM}">
+        <local:ProductAdd />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:ProductVMEdit}">
+        <local:ProductEdit />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:MessageViewModel}">
+        <StackPanel Margin="10" Width="600">
+            <TextBlock FontSize="20" TextWrapping="Wrap" Text="{Binding Message}" Margin="30,20,15,20"/>
+            <Button Foreground="White" FontSize="15" Content="Закрыть" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" />
+        </StackPanel>
+    </DataTemplate>
+</ResourceDictionary>

@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <UserSecretsId>fa05e235-69dd-41e7-9039-362246af7304</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="View\PizzaFon.jpg" />
+    <None Remove="View\PizzaFon.png" />
+    <None Remove="View\PizzaHut.svg.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommonServiceLocator" Version="2.0.6" />
+    <PackageReference Include="DocumentFormat.OpenXml" Version="2.13.1" />
+    <PackageReference Include="MaterialDesignThemes" Version="4.3.0-ci41" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.0-rc.1.21452.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.0-rc.1.21452.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.0-rc.1.21452.10">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Simplify.Windows.Forms" Version="1.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="View\PizzaFon.jpg" />
+    <Resource Include="View\PizzaFon.png" />
+    <Resource Include="View\PizzaHut.svg.png" />
+  </ItemGroup>
+
+</Project>
